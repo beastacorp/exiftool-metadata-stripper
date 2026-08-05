@@ -1,0 +1,49 @@
+#------------------------------------------------------------------------------
+# File:         pp_build_exe.args
+#
+# Description:  Arguments for building a stand-alone Windows executable for
+#               the ExifTool Metadata Stripper (strip_tool/).
+#
+#               This is deliberately a much shorter dependency list than the
+#               main exiftool.exe build (see ../pp_build_exe.args) -- this
+#               tool only ever reads a file's metadata and deletes it, so it
+#               doesn't need the CSV/JSON import, hashing, archive-format, or
+#               geotagging support that the full command-line application
+#               pulls in.
+#
+# Requires:     PAR::Packer (provides the "pp" command) and Perl/Tk,
+#               installed under the same Perl that will run this command.
+#               On Windows:  cpan install PAR::Packer Tk
+#
+# Build:        Don't run this file directly -- run build.bat in this
+#               directory instead (double-click it, or type ".\build.bat"
+#               from PowerShell/cmd). This file just holds the pp arguments
+#               build.bat passes through.
+#
+# Why -x:       Perl/Tk loads its widget classes (Frame, Button, Listbox,
+#               etc.) on demand via AUTOLOAD rather than a static "use", so
+#               pp's static scanner can't see them by itself, and the exact
+#               set of internal modules behind things like getOpenFile/
+#               chooseDirectory differs between Windows and X11 builds of
+#               Tk. Rather than hand-guess that list and risk it being
+#               wrong on your particular Tk build, this uses pp's "-x" flag
+#               (the officially documented fix for exactly this problem),
+#               which runs the app live during packaging and records
+#               whatever it actually loads. That's why build.bat pops the
+#               app up during the build -- click through it once (see the
+#               on-screen instructions) and the build finishes on its own.
+#------------------------------------------------------------------------------
+-x
+-o ExifMetadataStripper.exe
+-I ../lib
+-I lib
+-M ExifStripper::Core
+-M Encode
+-M Compress::Zlib
+-M Time::HiRes
+-M Win32::API
+-M Win32API::File
+-M Tk
+-M Tk::Font
+exif_metadata_stripper.pl
+# end
