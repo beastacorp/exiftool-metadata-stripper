@@ -67,7 +67,6 @@ metadata layout.
 ## Running it without building an .exe
 
 ```
-cd strip_tool
 perl exif_metadata_stripper.pl [file_or_folder ...]
 ```
 
