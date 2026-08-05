@@ -3,8 +3,7 @@
 A stripped-down, removal-only companion to ExifTool. It does exactly one
 thing: delete all metadata from the files or folders you give it. There is
 no tag editor, no "set a value", no swapping, no renaming, no format
-conversion. If you need to *edit* metadata, use the full `exiftool`
-command-line tool one directory up -- this tool is deliberately not that.
+conversion. If you need to *edit* metadata, use the full `exiftool` -- this tool is deliberately not that.
 
 ## What's here
 
